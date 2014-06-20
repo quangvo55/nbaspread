@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html ng-app="searchApp">
+<%= include head.ejs %> 
+<body ng-cloak ng-controller='searchCtrl'>
+    <%= include nav.ejs %> 
+        
+<div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-header">
+                    <h3>Choose Target(s)</h3>
+                </div>
+                <div class="span3">
+                    <div class="layout-clear-both">
+                        <select id="homeLocation" ng-model="homeLoc">
+                           <option ng-repeat="(key, value) in locations" id="{{key}}">{{ value }}</option>
+                        </select>
+                    </div>
+                    <div class="homeTeamContainer">
+                        <div class="input-append">
+                            <select id="homeTeams" ng-model="homeTeams">
+                              <option ng-repeat="(key, value) in teams" id="{{key}}">{{ value }}</option>
+                            </select>
+                        </div>
+                        <div id='multipleHomeTeams' class="list"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="page-header">
+                    <h3>Choose Opponent(s)*</h3>
+                </div>
+                <div class="span3">
+                    <div class="layout-clear-both">
+                        <select id="opponentLocation" ng-model="awayLoc"> 
+                            <option ng-repeat="(key, value) in locations" id="{{key}}">{{ value }}</option>
+                        </select>
+                    </div>
+                    <div class="awayTeamContainer">
+                        <div class="input-append">
+                            <select id="opponentTeams" ng-model="oppTeams">
+                              <option ng-repeat="(key, value) in teams" id="{{key}}">{{ value }}</option>
+                            </select>
+                        </div>
+                        <div id='multipleAwayTeams' class="list"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="page-header">
+                    <h3>Choose Time Frame & Spread</h3>
+                </div>
+                <div class="span4">
+                    <div class="layout-clear-both">
+                        <label for="startSeason" class="layout-float-left" style="width: 130px;">Start Season:</label>
+                        <select id="startSeason" class="layout-float-left" style="width: 190px;" ng-model="startSeason">
+                          <option ng-repeat="(key, value) in seasons" id="{{key-1}}">{{ value }}</option>
+                        </select>
+                    </div>
+
+                    <div class="layout-clear-both">
+                        <label for="endSeason" class="layout-float-left" style="width: 130px;">End Season:</label>
+                         <select id="endSeason" class="layout-float-left" style="width: 190px;" ng-model="endSeason">
+                          <option ng-repeat="(key, value) in seasons" id="{{key}}">{{ value }}</option>
+                        </select>
+                    </div>
+
+                    <div class="layout-clear-both">
+                        <p>
+                          <label for="amount">Spread range:</label>
+                          <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+                        </p>
+                        <div id="slider-range"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <button id="buttonPerformSearch" ng-click="search()" class="btn btn-primary">
+                    Search
+                    <i class="icon-search icon-white"></i>
+                </button>
+            </div>
+            <span class="span12">
+                <br /><br />
+                *Leave opponents empty to return all games for the target
+            </span>
+        </div>
+    <hr>
+    <tabs>
+      <pane title="Games">
+        <div id="tabs-1">
+            <h2 ng-hide="searchEntered == true">Please enter a search.</h2>
+            <div ng-bind-html="results_html | to_trusted"></div>
+        </div>
+      </pane>
+      <pane title="Charts">
+        <div class="row">
+            <div class="span4">
+            <h2 ng-show="searchEntered == true">Against the spread</h2>
+            <div id="ats"></div>
+            </div>
+            <div class="span4">
+              <h2 ng-show="searchEntered == true">Against the spread-home</h2>
+              <div id="atshome"></div>
+            </div>
+            <div class="span4">
+              <h2 ng-show="searchEntered == true">Against the spread-away</h2>
+              <div id="atsaway"></div>
+            </div>
+        </div>
+      <h2 ng-hide="searchEntered == true">Please enter a search.</h2>
+        <h2 ng-show="searchEntered == true">Spread Frequency</h2>
+            <div id="barAts"></div>
+      </pane>
+    </tabs>
+        <hr />
+        
+</div>
+<%= include footer.ejs %> 
+    <!-- scripts -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="//d3js.org/d3.v2.js"></script>
+    <script>
+      $(function() {
+        $( "#slider-range" ).slider({
+          range: true,
+          min: -20,
+          max: 20,
+          values: [ -20, 20 ],
+          slide: function( event, ui ) {
+            $( "#amount" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+          }
+        });
+        $( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) +
+          " to " + $( "#slider-range" ).slider( "values", 1 ) );
+      });
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="/js/angularComponents.js"></script>
+    <script src="/js/d3Components.js"></script>
+    <script src="/js/searchCtrl.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app='nbaMap'>
+<head>
+    <meta charset="utf-8" />
+    <title><%= title %></title>
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body ng-controller='mapCtrl'>
+  <%= include nav.ejs %> 
+
+  <div class="container">
+    Start:
+    <select ng-model="star" 
+            ng-options="team as team.Team for team in teams">           
+    </select>
+    End:
+    <select ng-model="end" 
+            ng-options="team as team.Team for team in teams">           
+    </select>
+    <p>Start by: {{star.Team}} - {{star.Address}}</p>
+    <p>End by: {{end.Team}} - {{end.Address}}</p>
+    <p>Distance between stadium: <span id="outputDiv"></span></p>
+    <button ng-click="getDist()">Calculate Distance </button>
+  </div>
+
+  <hr/>
+
+  <div id="map-canvas"></div>
+
+  <%= include footer.ejs %> 
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+  <script type="text/javascript">
+  var map, geocoder, bounds = new google.maps.LatLngBounds(), markersArray = [], lines = [];
+
+  function initMap() {
+    var opts = {
+      center: new google.maps.LatLng(39.7392, -104.9847), //Denver CO
+      zoom: 4
+    };
+      map = new google.maps.Map(document.getElementById('map-canvas'), opts);
+      geocoder = new google.maps.Geocoder();
+  }
+  google.maps.event.addDomListener(window, 'load', initMap);
+  </script>
+  <script type="text/javascript">
+  var app = angular.module('nbaMap', []);
+  </script>
+  <script type="text/javascript" src="/js/controllers/mapCtrl.js"></script>
+  <script type="text/javascript" src="/js/services/apiService.js"></script>
+</body>
+</html>
