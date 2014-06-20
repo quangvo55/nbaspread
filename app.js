@@ -1,32 +1,9 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express');
 var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 
 var app = express();
-
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-	host : 'us-cdbr-east-06.cleardb.net',
-	user : 'b61ee1d3f83069',
-	password: '03c9629a',
-	database: 'heroku_94e96de1b6e2705'
-});
-
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  } else {
-    console.log('Connection to database successful.');
-  }
-  
-});
 
 // all environments
 app.set('port', process.env.PORT || 3000);
