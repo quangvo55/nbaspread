@@ -1,3 +1,43 @@
+* {
+	margin: 0;
+}
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: #fafafa;
+}
+select {
+	width: 220px;
+	border: 1px solid #bbb;
+	background-color: #fff;
+	height: 30px;
+	line-height: 30px;
+	margin-bottom: 10px;
+	padding: 4px 6px;
+	border-radius: 3px;
+}
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -110px; 
+}
+.footer, .push {
+	height: 110px; 
+}
+.footer {
+	text-align: center;
+	padding: 30px;
+	margin-top: 50px;
+	border-top: 1px solid #e5e5e5;
+	background-color: black;
+	position:absolute;
+   	width: 100%;
+   	height: 60px;
+   	color: #428bca;
+}
+/* search table */ 
 #resultsTable {
 	table-collapse:collapse;
 }
@@ -16,6 +56,7 @@
     margin-right: auto;
     margin-top: 10px;
 }
+/* D3 */
 .arc path {
   stroke: #fff;
 }
@@ -62,25 +103,6 @@ rect {
 rect:hover{
 	fill: orange;
 }
-select {
-	width: 220px;
-	border: 1px solid #bbb;
-	background-color: #fff;
-	height: 30px;
-	line-height: 30px;
-	margin-bottom: 10px;
-	padding: 4px 6px;
-	border-radius: 3px;
-}
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	background-color: #fafafa;
-}
 
 #map-canvas {
 	height: 64%;
@@ -97,19 +119,6 @@ body {
 	color: red;
 	font-weight: bold;
 }
-.footer {
-	text-align: center;
-	padding: 30px;
-	margin-top: 50px;
-	border-top: 1px solid #e5e5e5;
-	background-color: black;
-	position:absolute;
-   	bottom:0;
-   	width: 100%;
-   	height: 60px;
-   	color: #428bca;
-}
-
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
